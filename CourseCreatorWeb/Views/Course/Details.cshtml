@@ -1,0 +1,58 @@
+﻿@model List<Course>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Course Details</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        @* <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Course" asp-action="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Add New Course
+                </a>
+            </div>
+        </div> *@
+        <table class="table table-bordered table-striped">
+            <thead>
+
+            </thead>
+            <tbody>
+                @foreach (var course in Model.OrderBy(u => u.Id))
+                {
+                    <tr>
+                        <th>Subject</th>
+                        <td>@course.Subject</td>
+                    </tr>
+                    <tr>
+                        <th>Course Name</th>
+                        <td>@course.Title</td>
+                    </tr>
+                    <tr>
+                        <th>Course Description</th>
+                        <td>@course.Description</td>
+                    </tr>
+                    <tr>
+                        <th>Credit Hours</th>
+                        <td>@course.CreditHours</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="row pt-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Course" asp-action="Index" class="btn btn-primary w-50">
+                    Back To Course Catalog
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

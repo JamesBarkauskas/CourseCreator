@@ -19,5 +19,98 @@ namespace CourseCreatorWeb.Controllers
 
             return View(courseList);
         }
+
+        public IActionResult Details(int? id)
+        {
+            List<Course> courses = new List<Course>();
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Course? course = _db.Courses.Find(id);
+
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            courses.Add(course);
+            return View(courses);
+        }
+        
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Courses.Add(course);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Course? course = _db.Courses.Find(id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Courses.Update(course);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Course course = _db.Courses.Find(id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Course course = _db.Courses.Find(id);
+
+            if (course == null)
+            {
+                return NotFound();
+            }
+            _db.Courses.Remove(course);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
